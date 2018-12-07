@@ -5,6 +5,9 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.time.format.DateTimeFormatter;
+import java.util.Collection;
+
 public class BibliotekaModel {
     private ObservableList<Knjiga> knjige = FXCollections.observableArrayList();
     private ObjectProperty<Knjiga> trenutnaKnjiga = new SimpleObjectProperty<>();
@@ -36,5 +39,22 @@ public class BibliotekaModel {
         knjige.add(new Knjiga("Ivo Andrić", "Travnička hronika", "abcd", 500));
         knjige.add(new Knjiga("J. K. Rowling", "Harry Potter", "abcd", 500));
         //trenutnaKnjiga.set(null);
+    }
+
+    public String dajKnjige() {
+        String ispis = "";
+        for (Knjiga knjiga : knjige) {
+            ispis += knjiga;
+            ispis += "\n";
+        }
+        return ispis;
+    }
+
+    public void deleteKnjiga() {
+
+    }
+
+    public void addKnjiga(Knjiga knjiga) {
+
     }
 }
