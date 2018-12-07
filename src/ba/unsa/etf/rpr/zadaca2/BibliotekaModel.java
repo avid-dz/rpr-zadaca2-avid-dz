@@ -51,7 +51,8 @@ public class BibliotekaModel {
     }
 
     public void deleteKnjiga() {
-
+        knjige.remove(getTrenutnaKnjiga());
+        setTrenutnaKnjiga(null);
     }
 
     public void addKnjiga(Knjiga knjiga) {
