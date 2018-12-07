@@ -55,6 +55,6 @@ public class BibliotekaModel {
     }
 
     public void addKnjiga(Knjiga knjiga) {
-
+        knjige.add(knjiga);
     }
 }
