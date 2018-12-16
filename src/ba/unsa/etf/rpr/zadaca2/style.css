@@ -1,0 +1,11 @@
+#window {
+    -fx-background-color: white;
+}
+
+.validField {
+    -fx-control-inner-background: yellowgreen;
+}
+
+.invalidField {
+    -fx-control-inner-background: lightpink;
+}
