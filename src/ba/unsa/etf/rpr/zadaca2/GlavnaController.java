@@ -76,16 +76,14 @@ public class GlavnaController {
     }
 
     public void deleteEvent(ActionEvent actionEvent) {
-        ButtonType okButton = new ButtonType("Ok");
-        ButtonType cancelButton = new ButtonType("Cancel");
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", okButton, cancelButton);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.OK, ButtonType.CANCEL);
         alert.setTitle("Brisanje knjige");
         alert.setHeaderText("Da li ste sigurni da želite obrisati trenutnu knjigu?");
         alert.showAndWait().ifPresent(response -> {
-            if (response == okButton) {
+            if (response == ButtonType.OK) {
                 bibliotekaModel.deleteKnjiga();
             }
-            else if (response == cancelButton) {
+            else if (response == ButtonType.CANCEL) {
                 alert.close();
             }
         });
