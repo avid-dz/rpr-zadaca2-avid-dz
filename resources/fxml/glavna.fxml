@@ -13,8 +13,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import java.net.URL?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
             prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@/css/glavnaStyle.css" />
+    </stylesheets>
    <center>
       <TableView fx:id="tabelaKnjiga" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
@@ -32,24 +36,24 @@
          <children>
             <MenuBar>
               <menus>
-                <Menu text="_File">
+                <Menu fx:id="menuFile" text="_File">
                   <items>
-                    <MenuItem onAction="#openEvent" text="_Open..." />
-                        <MenuItem onAction="#saveEvent" text="_Save..." />
-                        <MenuItem onAction="#printEvent" text="_Print" />
-                        <MenuItem onAction="#exitEvent" text="E_xit" />
+                    <MenuItem fx:id="menuOpen" onAction="#openEvent" text="_Open..." />
+                        <MenuItem fx:id="menuSave" onAction="#saveEvent" text="_Save..." />
+                        <MenuItem fx:id="menuPrint" onAction="#printEvent" text="_Print" />
+                        <MenuItem fx:id="menuExit" onAction="#exitEvent" text="E_xit" />
                   </items>
                 </Menu>
-                <Menu text="_Edit">
+                <Menu fx:id="menuEdit" text="_Edit">
                   <items>
-                    <MenuItem onAction="#addEvent" text="_Add" />
-                        <MenuItem onAction="#changeEvent" text="_Change" />
-                        <MenuItem onAction="#deleteEvent" text="_Delete" />
+                    <MenuItem fx:id="menuAdd" onAction="#addEvent" text="_Add" />
+                        <MenuItem fx:id="menuChange" onAction="#changeEvent" text="_Change" />
+                        <MenuItem fx:id="menuDelete" onAction="#deleteEvent" text="_Delete" />
                   </items>
                 </Menu>
-                <Menu text="_Help">
+                <Menu fx:id="menuHelp" text="_Help">
                   <items>
-                    <MenuItem onAction="#aboutEvent" text="A_bout" />
+                    <MenuItem fx:id="menuAbout" onAction="#aboutEvent" text="A_bout" />
                   </items>
                 </Menu>
               </menus>
