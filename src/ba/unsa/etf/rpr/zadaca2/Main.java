@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
+
 public class Main extends Application {
 
     @Override
@@ -13,11 +15,11 @@ public class Main extends Application {
         BibliotekaModel model = new BibliotekaModel();
         model.napuni();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("biblioteka.fxml"));
-        loader.setController(new BibliotekaController(model));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("glavna.fxml"));
+        loader.setController(new GlavnaController(model));
         Parent root = loader.load();
         primaryStage.setTitle("Biblioteka");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
         primaryStage.show();
     }
 
