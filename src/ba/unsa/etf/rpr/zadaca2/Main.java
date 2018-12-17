@@ -15,7 +15,7 @@ public class Main extends Application {
         BibliotekaModel model = new BibliotekaModel();
         model.napuni();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/glavna.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("glavna.fxml"));
         loader.setController(new GlavnaController(model));
         Parent root = loader.load();
         primaryStage.setTitle("Biblioteka");

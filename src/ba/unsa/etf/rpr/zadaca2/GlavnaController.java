@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -98,7 +97,7 @@ public class GlavnaController {
 
     public void prikazFormulara() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/biblioteka.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("biblioteka.fxml"));
             loader.setController(new BibliotekaController(bibliotekaModel));
             Parent root = loader.load();
             Stage noviStage = new Stage();
