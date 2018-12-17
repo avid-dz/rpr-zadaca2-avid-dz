@@ -3,7 +3,7 @@
 }
 
 .validField {
-    -fx-control-inner-background: yellowgreen;
+    -fx-control-inner-background: greenyellow;
 }
 
 .invalidField {

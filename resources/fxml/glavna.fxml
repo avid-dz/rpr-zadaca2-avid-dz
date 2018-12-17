@@ -32,19 +32,24 @@
          <children>
             <MenuBar>
               <menus>
-                <Menu mnemonicParsing="false" text="_File">
+                <Menu text="_File">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
+                    <MenuItem text="_Open..." />
+                        <MenuItem text="_Save..." />
+                        <MenuItem text="_Print" />
+                        <MenuItem text="E_xit" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="_Edit">
+                <Menu text="_Edit">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
+                    <MenuItem text="_Add" />
+                        <MenuItem text="_Change" />
+                        <MenuItem text="_Delete" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="_Help">
+                <Menu text="_Help">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
+                    <MenuItem text="A_bout" />
                   </items>
                 </Menu>
               </menus>
@@ -62,7 +67,7 @@
     <bottom>
         <HBox prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <Label styleClass="statusBar" text="Program pokrenut." />
+                <Label fx:id="labelaStatusa" styleClass="statusBar" />
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

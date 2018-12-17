@@ -9,13 +9,19 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Knjiga {
-    private SimpleStringProperty autor = new SimpleStringProperty("");
-    private SimpleStringProperty naslov = new SimpleStringProperty("");
-    private SimpleStringProperty isbn = new SimpleStringProperty("");
-    private SimpleIntegerProperty brojStranica = new SimpleIntegerProperty(0);
-    private ObjectProperty<LocalDate> datumIzdanja = new SimpleObjectProperty<>();
+    private SimpleStringProperty autor;
+    private SimpleStringProperty naslov;
+    private SimpleStringProperty isbn;
+    private SimpleIntegerProperty brojStranica;
+    private ObjectProperty<LocalDate> datumIzdanja;
 
-    public Knjiga() {}
+    public Knjiga() {
+        autor = new SimpleStringProperty("");
+        naslov = new SimpleStringProperty("");
+        isbn = new SimpleStringProperty("");
+        brojStranica = new SimpleIntegerProperty(0);
+        datumIzdanja = new SimpleObjectProperty<>();
+    }
 
     public Knjiga(String a, String n, String i, int b) {
         autor = new SimpleStringProperty(a);
