@@ -34,31 +34,31 @@
               <menus>
                 <Menu text="_File">
                   <items>
-                    <MenuItem text="_Open..." />
-                        <MenuItem text="_Save..." />
-                        <MenuItem text="_Print" />
-                        <MenuItem text="E_xit" />
+                    <MenuItem onAction="#openEvent" text="_Open..." />
+                        <MenuItem onAction="#saveEvent" text="_Save..." />
+                        <MenuItem onAction="#printEvent" text="_Print" />
+                        <MenuItem onAction="#exitEvent" text="E_xit" />
                   </items>
                 </Menu>
                 <Menu text="_Edit">
                   <items>
-                    <MenuItem text="_Add" />
-                        <MenuItem text="_Change" />
-                        <MenuItem text="_Delete" />
+                    <MenuItem onAction="#addEvent" text="_Add" />
+                        <MenuItem onAction="#changeEvent" text="_Change" />
+                        <MenuItem onAction="#deleteEvent" text="_Delete" />
                   </items>
                 </Menu>
                 <Menu text="_Help">
                   <items>
-                    <MenuItem text="A_bout" />
+                    <MenuItem onAction="#aboutEvent" text="A_bout" />
                   </items>
                 </Menu>
               </menus>
             </MenuBar>
             <ToolBar>
               <items>
-                <Button fx:id="tbAdd" mnemonicParsing="false" styleClass="tbButton" />
-                  <Button fx:id="tbChange" mnemonicParsing="false" styleClass="tbButton" />
-                  <Button fx:id="tbDelete" mnemonicParsing="false" styleClass="tbButton" />
+                <Button fx:id="tbAdd" onAction="#addEvent" mnemonicParsing="false" styleClass="tbButton" />
+                  <Button fx:id="tbChange" onAction="#changeEvent" mnemonicParsing="false" styleClass="tbButton" />
+                  <Button fx:id="tbDelete" onAction="#deleteEvent" mnemonicParsing="false" styleClass="tbButton" />
               </items>
             </ToolBar>
          </children>
@@ -67,7 +67,7 @@
     <bottom>
         <HBox prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <Label fx:id="labelaStatusa" styleClass="statusBar" />
+                <Label fx:id="statusMsg" styleClass="statusBar" />
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
