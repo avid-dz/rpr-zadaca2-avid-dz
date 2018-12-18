@@ -22,7 +22,6 @@ public class BibliotekaController {
     @FXML
     public void initialize() {
         izborKnjige.setItems(model.getKnjige());
-        //knjigaAutor.textProperty().bindBidirectional(new SimpleStringProperty(model.getTrenutnaKnjiga().getAutor()));
 
         model.trenutnaKnjigaProperty().addListener((obs, oldKnjiga, newKnjiga) -> {
             System.out.print("Mijenjam data binding");
