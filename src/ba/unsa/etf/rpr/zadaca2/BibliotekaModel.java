@@ -38,7 +38,6 @@ public class BibliotekaModel {
         knjige.add(new Knjiga("Meša Selimović", "Tvrđava", "abcd", 500));
         knjige.add(new Knjiga("Ivo Andrić", "Travnička hronika", "abcd", 500));
         knjige.add(new Knjiga("J. K. Rowling", "Harry Potter", "abcd", 500));
-        //trenutnaKnjiga.set(null);
     }
 
     public String dajKnjige() {

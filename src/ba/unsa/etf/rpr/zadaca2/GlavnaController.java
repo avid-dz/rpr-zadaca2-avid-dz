@@ -84,11 +84,13 @@ public class GlavnaController {
     }
 
     public void changeEvent(ActionEvent actionEvent) {
+        if (bibliotekaModel.getTrenutnaKnjiga() == null) return;
         setTekstStatusa("Mijenjam knjigu.");
         prikazFormulara();
     }
 
     public void deleteEvent(ActionEvent actionEvent) {
+        if (bibliotekaModel.getTrenutnaKnjiga() == null) return;
         setTekstStatusa("Brišem knjigu.");
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.OK, ButtonType.CANCEL);
         alert.setTitle("Brisanje knjige");
@@ -98,6 +100,7 @@ public class GlavnaController {
                 bibliotekaModel.deleteKnjiga();
                 setTekstStatusa("Knjiga obrisana.");
                 tabelaKnjiga.refresh();
+                tabelaKnjiga.getSelectionModel().clearSelection();
             }
             else if (response == ButtonType.CANCEL) {
                 alert.close();

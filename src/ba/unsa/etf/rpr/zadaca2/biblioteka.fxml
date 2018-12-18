@@ -51,7 +51,7 @@
                   <Insets left="5.0" />
                </padding>
             </Label>
-            <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <DatePicker fx:id="knjigaDatum" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <GridPane GridPane.columnSpan="2" GridPane.rowIndex="0">
