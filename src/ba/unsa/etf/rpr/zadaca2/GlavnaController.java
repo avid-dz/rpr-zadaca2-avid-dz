@@ -7,9 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.io.File;
 
@@ -18,6 +16,7 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 public class GlavnaController {
 
     private BibliotekaModel bibliotekaModel;
+    public TableView tabelaKnjiga;
     public Label statusMsg;
     private SimpleStringProperty tekstStatusa;
 
@@ -42,6 +41,8 @@ public class GlavnaController {
     public void initialize() {
         statusMsg.textProperty().bind(tekstStatusa);
         setTekstStatusa("Program pokrenut.");
+        tabelaKnjiga.setEditable(true);
+        tabelaKnjiga.setItems(bibliotekaModel.getKnjige());
     }
 
     public void doSave(File file) {
@@ -88,6 +89,7 @@ public class GlavnaController {
             if (response == ButtonType.OK) {
                 bibliotekaModel.deleteKnjiga();
                 setTekstStatusa("Knjiga obrisana.");
+                tabelaKnjiga.refresh();
             }
             else if (response == ButtonType.CANCEL) {
                 alert.close();
