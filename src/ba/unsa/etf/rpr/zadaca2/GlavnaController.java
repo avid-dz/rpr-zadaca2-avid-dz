@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr.zadaca2;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,7 +65,7 @@ public class GlavnaController {
     }
 
     public void exitEvent(ActionEvent actionEvent) {
-
+        Platform.exit();
     }
 
     public void addEvent(ActionEvent actionEvent) {
