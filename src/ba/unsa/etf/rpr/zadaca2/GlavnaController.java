@@ -61,6 +61,7 @@ public class GlavnaController {
     }
 
     public void printEvent(ActionEvent actionEvent) {
+        setTekstStatusa("Štampam knjige na standardni izlaz.");
         bibliotekaModel.ispisiKnjige();
     }
 
@@ -69,23 +70,28 @@ public class GlavnaController {
     }
 
     public void addEvent(ActionEvent actionEvent) {
+        setTekstStatusa("Dodajem novu knjigu.");
         prikazFormulara();
     }
 
     public void changeEvent(ActionEvent actionEvent) {
+        setTekstStatusa("Mijenjam knjigu.");
         prikazFormulara();
     }
 
     public void deleteEvent(ActionEvent actionEvent) {
+        setTekstStatusa("Brišem knjigu.");
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.OK, ButtonType.CANCEL);
         alert.setTitle("Brisanje knjige");
         alert.setHeaderText("Da li ste sigurni da želite obrisati trenutnu knjigu?");
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 bibliotekaModel.deleteKnjiga();
+                setTekstStatusa("Knjiga obrisana.");
             }
             else if (response == ButtonType.CANCEL) {
                 alert.close();
+                setTekstStatusa("Knjiga nije obrisana.");
             }
         });
     }
