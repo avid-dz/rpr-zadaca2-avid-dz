@@ -41,7 +41,7 @@
                     <MenuItem fx:id="menuOpen" onAction="#openEvent" text="_Open..." />
                         <MenuItem fx:id="menuSave" onAction="#saveEvent" text="_Save..." />
                         <MenuItem fx:id="menuPrint" onAction="#printEvent" text="_Print" />
-                        <MenuItem fx:id="menuExit" onAction="#exitEvent" text="E_xit" />
+                        <MenuItem fx:id="menuExit" onAction="#exitEvent" text="_Exit" />
                   </items>
                 </Menu>
                 <Menu fx:id="menuEdit" text="_Edit">
@@ -53,7 +53,7 @@
                 </Menu>
                 <Menu fx:id="menuHelp" text="_Help">
                   <items>
-                    <MenuItem fx:id="menuAbout" onAction="#aboutEvent" text="A_bout" />
+                    <MenuItem fx:id="menuAbout" onAction="#aboutEvent" text="_About" />
                   </items>
                 </Menu>
               </menus>

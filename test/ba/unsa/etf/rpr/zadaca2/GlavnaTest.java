@@ -689,11 +689,11 @@ class GlavnaTest {
         assertTrue(colorFound2);
     }
 
-    /*@Test
+    @Test
     public void testQuit (FxRobot robot) {
         robot.clickOn("#tabelaKnjiga");
         robot.press(KeyCode.ALT).press(KeyCode.F).release(KeyCode.F).press(KeyCode.E).release(KeyCode.E).release(KeyCode.ALT);
         assertFalse(theStage.isShowing());
-    }*/
+    }
 
 }
