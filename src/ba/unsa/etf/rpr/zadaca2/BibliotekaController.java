@@ -46,11 +46,6 @@ public class BibliotekaController {
         });
     }
 
-    public void izabranaKnjiga(ActionEvent actionEvent) {
-        System.out.println("Promijenjena je trenutna knjiga na: " + izborKnjige.getValue());
-        model.setTrenutnaKnjiga(izborKnjige.getValue());
-    }
-
     public void ispisiKnjige(ActionEvent actionEvent) {
         model.ispisiKnjige();
     }

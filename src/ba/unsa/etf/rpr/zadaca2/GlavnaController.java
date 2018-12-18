@@ -2,6 +2,8 @@ package ba.unsa.etf.rpr.zadaca2;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,6 +45,12 @@ public class GlavnaController {
         setTekstStatusa("Program pokrenut.");
         tabelaKnjiga.setEditable(true);
         tabelaKnjiga.setItems(bibliotekaModel.getKnjige());
+        tabelaKnjiga.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Knjiga>() {
+            @Override
+            public void changed(ObservableValue<? extends Knjiga> observableValue, Knjiga o, Knjiga n) {
+                bibliotekaModel.setTrenutnaKnjiga(n);
+            }
+        });
     }
 
     public void doSave(File file) {
