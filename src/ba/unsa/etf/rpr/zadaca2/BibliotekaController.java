@@ -12,11 +12,14 @@ import java.time.LocalDate;
 public class BibliotekaController {
 
     private BibliotekaModel model;
-    private boolean validnaForma;
     public TextField knjigaAutor;
+    private boolean validanAutorKnjige;
     public TextField knjigaNaslov;
+    private boolean validanNaslovKnjige;
     public TextField knjigaIsbn;
+    private boolean validanIsbnKnjige;
     public DatePicker knjigaDatum;
+    private boolean validanDatumIzdanjaKnjige;
 
     public BibliotekaController(BibliotekaModel m) {
         model = m;
@@ -35,11 +38,11 @@ public class BibliotekaController {
                 if (validanNaslov(n)) {
                     knjigaNaslov.getStyleClass().removeAll("invalidField");
                     knjigaNaslov.getStyleClass().add("validField");
-                    validnaForma = true;
+                    validanNaslovKnjige = true;
                 } else {
                     knjigaNaslov.getStyleClass().removeAll("validField");
                     knjigaNaslov.getStyleClass().add("invalidField");
-                    validnaForma = false;
+                    validanNaslovKnjige = false;
                 }
             }
         });
@@ -50,11 +53,11 @@ public class BibliotekaController {
                 if (validanAutor(n)) {
                     knjigaAutor.getStyleClass().removeAll("invalidField");
                     knjigaAutor.getStyleClass().add("validField");
-                    validnaForma = true;
+                    validanAutorKnjige = true;
                 } else {
                     knjigaAutor.getStyleClass().removeAll("validField");
                     knjigaAutor.getStyleClass().add("invalidField");
-                    validnaForma = false;
+                    validanAutorKnjige = false;
                 }
             }
         });
@@ -65,11 +68,11 @@ public class BibliotekaController {
                 if (validanIsbn(n)) {
                     knjigaIsbn.getStyleClass().removeAll("invalidField");
                     knjigaIsbn.getStyleClass().add("validField");
-                    validnaForma = true;
+                    validanIsbnKnjige = true;
                 } else {
                     knjigaIsbn.getStyleClass().removeAll("validField");
                     knjigaIsbn.getStyleClass().add("invalidField");
-                    validnaForma = false;
+                    validanIsbnKnjige = false;
                 }
             }
         });
@@ -78,11 +81,11 @@ public class BibliotekaController {
             if (validanDatumIzdanja(n)) {
                 knjigaDatum.getStyleClass().removeAll("invalidField");
                 knjigaDatum.getStyleClass().add("validField");
-                validnaForma = true;
+                validanDatumIzdanjaKnjige = true;
             } else {
                 knjigaDatum.getStyleClass().removeAll("validField");
                 knjigaDatum.getStyleClass().add("invalidField");
-                validnaForma = false;
+                validanDatumIzdanjaKnjige = false;
             }
         });
     }
@@ -109,5 +112,9 @@ public class BibliotekaController {
     private boolean validanDatumIzdanja(LocalDate n) {
         if (n.isAfter(LocalDate.now())) return false;
         return true;
+    }
+
+    private boolean validnaForma() {
+        return validanAutorKnjige && validanNaslovKnjige && validanIsbnKnjige && validanDatumIzdanjaKnjige;
     }
 }
