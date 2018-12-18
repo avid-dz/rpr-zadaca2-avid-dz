@@ -90,10 +90,10 @@ public class GlavnaController {
     }
 
     public void aboutEvent(ActionEvent actionEvent) {
-
+        prikazAboutProzora();
     }
 
-    public void prikazFormulara() {
+    private void prikazFormulara() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("biblioteka.fxml"));
             loader.setController(new BibliotekaController(bibliotekaModel));
@@ -101,6 +101,20 @@ public class GlavnaController {
             Stage noviStage = new Stage();
             noviStage.setResizable(false);
             noviStage.setTitle("Izmjena knjige");
+            noviStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            noviStage.show();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    private void prikazAboutProzora() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("about.fxml"));
+            Parent root = loader.load();
+            Stage noviStage = new Stage();
+            noviStage.setResizable(false);
+            noviStage.setTitle("About");
             noviStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             noviStage.show();
         } catch (Exception exception) {
