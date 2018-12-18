@@ -46,14 +46,14 @@
                 </Menu>
                 <Menu fx:id="menuEdit" text="_Edit">
                   <items>
-                    <MenuItem fx:id="menuAdd" onAction="#addEvent" text="_Add" />
-                        <MenuItem fx:id="menuChange" onAction="#changeEvent" text="_Change" />
-                        <MenuItem fx:id="menuDelete" onAction="#deleteEvent" text="_Delete" />
+                    <MenuItem fx:id="menuAdd" onAction="#addEvent" text="_Add..." />
+                        <MenuItem fx:id="menuChange" onAction="#changeEvent" text="_Change..." />
+                        <MenuItem fx:id="menuDelete" onAction="#deleteEvent" text="_Delete..." />
                   </items>
                 </Menu>
                 <Menu fx:id="menuHelp" text="_Help">
                   <items>
-                    <MenuItem fx:id="menuAbout" onAction="#aboutEvent" text="_About" />
+                    <MenuItem fx:id="menuAbout" onAction="#aboutEvent" text="_About..." />
                   </items>
                 </Menu>
               </menus>
