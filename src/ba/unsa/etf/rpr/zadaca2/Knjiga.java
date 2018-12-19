@@ -84,9 +84,7 @@ public class Knjiga {
     @Override
     public String toString() {
         return autor.get() + ", " + naslov.get() + ", " + isbn.get() + ", " + (brojStranica.get()) + ", "
-                + ((datumIzdanja.get().getDayOfMonth() < 10) ? "0" : "") + (datumIzdanja.get().getDayOfMonth()) + ". "
-                + ((datumIzdanja.get().getMonthValue() < 10) ? "0" : "") + (datumIzdanja.get().getMonthValue()) + ". "
-                + (datumIzdanja.get().getYear());
+                + DateTimeFormatter.ofPattern("dd. MM. yyyy").format(datumIzdanja.get());
     }
 
     public LocalDate getDatumIzdanja() {
