@@ -5,8 +5,12 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.util.StringConverter;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class BibliotekaController {
 
@@ -59,6 +63,37 @@ public class BibliotekaController {
 
         knjigaDatum.valueProperty().addListener((old, o, n) -> {
             validacijaDatumaIzdanja(n);
+        });
+
+        knjigaDatum.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate datumZaPretvaranje) {
+                if (datumZaPretvaranje != null) {
+                    try {
+                        return DateTimeFormatter.ofPattern("dd. MM. yyyy").format(datumZaPretvaranje);
+                    } catch (DateTimeException dte) {
+                        dte.printStackTrace();
+                    }
+                }
+                knjigaDatum.getStyleClass().removeAll("validField");
+                knjigaDatum.getStyleClass().add("invalidField");
+                validanDatumIzdanjaKnjige = false;
+                return "";
+            }
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    try {
+                        return LocalDate.parse(string, DateTimeFormatter.ofPattern("dd. MM. yyyy"));
+                    } catch (DateTimeParseException dtpe) {
+                        dtpe.printStackTrace();
+                    }
+                }
+                knjigaDatum.getStyleClass().removeAll("validField");
+                knjigaDatum.getStyleClass().add("invalidField");
+                validanDatumIzdanjaKnjige = false;
+                return null;
+            }
         });
     }
 

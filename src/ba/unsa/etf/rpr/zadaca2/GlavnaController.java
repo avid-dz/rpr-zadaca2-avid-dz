@@ -49,14 +49,17 @@ public class GlavnaController {
     public void initialize() {
         statusMsg.textProperty().bind(tekstStatusa);
         setTekstStatusa("Program pokrenut.");
+
         tabelaKnjiga.setEditable(true);
         tabelaKnjiga.setItems(bibliotekaModel.getKnjige());
+
         tabelaKnjiga.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Knjiga>() {
             @Override
             public void changed(ObservableValue<? extends Knjiga> observableValue, Knjiga o, Knjiga n) {
                 bibliotekaModel.setTrenutnaKnjiga(n);
             }
         });
+
         tabelaKnjiga.setRowFactory(tv -> {
             TableRow<Knjiga> redTabele = new TableRow<>();
             redTabele.setOnMouseClicked(event -> {
