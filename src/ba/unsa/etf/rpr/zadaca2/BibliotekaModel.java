@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
@@ -55,6 +56,7 @@ public class BibliotekaModel {
     }
 
     public void addKnjiga(Knjiga knjiga) {
+        if (knjiga.getDatumIzdanja() == null) knjiga.setDatumIzdanja(LocalDate.now());
         knjige.add(knjiga);
     }
 }

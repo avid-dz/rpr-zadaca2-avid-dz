@@ -22,17 +22,17 @@
    <center>
       <TableView fx:id="tabelaKnjiga" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn prefWidth="200.0" text="Naslov">
-              <cellValueFactory>
-                  <PropertyValueFactory property="naslov" />
-              </cellValueFactory>
-          </TableColumn>
           <TableColumn prefWidth="200.0" text="Autor">
               <cellValueFactory>
                   <PropertyValueFactory property="autor" />
               </cellValueFactory>
           </TableColumn>
-            <TableColumn maxWidth="1.7976931348623157E308" prefWidth="199.0" text="Datum izdanja">
+            <TableColumn prefWidth="200.0" text="Naslov">
+                <cellValueFactory>
+                    <PropertyValueFactory property="naslov" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn maxWidth="1.7976931348623157E308" prefWidth="200.0" text="Datum izdanja">
                 <cellValueFactory>
                     <PropertyValueFactory property="datumIzdanja" />
                 </cellValueFactory>
