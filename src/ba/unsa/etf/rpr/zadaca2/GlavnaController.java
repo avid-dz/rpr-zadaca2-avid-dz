@@ -15,7 +15,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.File;
 import java.time.LocalDate;
-import java.util.Date;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
