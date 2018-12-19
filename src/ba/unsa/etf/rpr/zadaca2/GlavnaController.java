@@ -21,6 +21,7 @@ public class GlavnaController {
     public TableView tabelaKnjiga;
     public Label statusMsg;
     private SimpleStringProperty tekstStatusa;
+    private BibliotekaController bibliotekaController;
 
     public String getTekstStatusa() {
         return tekstStatusa.get();
@@ -37,6 +38,7 @@ public class GlavnaController {
     public GlavnaController(BibliotekaModel bibliotekaModel) {
         this.bibliotekaModel = bibliotekaModel;
         tekstStatusa = new SimpleStringProperty("");
+        bibliotekaController = null;
     }
 
     @FXML
@@ -79,14 +81,71 @@ public class GlavnaController {
     }
 
     public void addEvent(ActionEvent actionEvent) {
-        setTekstStatusa("Dodajem novu knjigu.");
-        prikazFormulara();
+        Stage noviStage = null;
+        FXMLLoader loader = null;
+        try {
+            loader = new FXMLLoader(getClass().getResource("biblioteka.fxml"));
+            bibliotekaController = new BibliotekaController(bibliotekaModel);
+            loader.setController(bibliotekaController);
+            Parent root = loader.load();
+            noviStage = new Stage();
+            noviStage.setResizable(false);
+            noviStage.setTitle("Izmjena knjige");
+            noviStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            noviStage.show();
+            setTekstStatusa("Dodajem novu knjigu.");
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        if (noviStage == null) return;
+        noviStage.setOnCloseRequest(event -> {
+            if (bibliotekaController.validnaForma()) {
+                setTekstStatusa("Knjiga dodana.");
+            }
+            else {
+
+                setTekstStatusa("Knjiga nije dodana.");
+            }
+        });
     }
 
     public void changeEvent(ActionEvent actionEvent) {
         if (bibliotekaModel.getTrenutnaKnjiga() == null) return;
-        setTekstStatusa("Mijenjam knjigu.");
-        prikazFormulara();
+        Knjiga trenutna = bibliotekaModel.getTrenutnaKnjiga();
+        Knjiga knjigaSaStarimKarakteristikama =
+                new Knjiga(trenutna.getAutor(), trenutna.getNaslov(), trenutna.getIsbn(), trenutna.getBrojStranica());
+        knjigaSaStarimKarakteristikama.setDatumIzdanja(trenutna.getDatumIzdanja());
+        Stage noviStage = null;
+        FXMLLoader loader = null;
+        try {
+            loader = new FXMLLoader(getClass().getResource("biblioteka.fxml"));
+            bibliotekaController = new BibliotekaController(bibliotekaModel);
+            loader.setController(bibliotekaController);
+            Parent root = loader.load();
+            noviStage = new Stage();
+            noviStage.setResizable(false);
+            noviStage.setTitle("Izmjena knjige");
+            noviStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            noviStage.show();
+            setTekstStatusa("Mijenjam knjigu.");
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        if (noviStage == null) return;
+        noviStage.setOnCloseRequest(event -> {
+            if (bibliotekaController.validnaForma()) {
+                setTekstStatusa("Knjiga izmijenjena.");
+            }
+            else {
+                trenutna.setAutor(knjigaSaStarimKarakteristikama.getAutor());
+                trenutna.setNaslov(knjigaSaStarimKarakteristikama.getNaslov());
+                trenutna.setIsbn(knjigaSaStarimKarakteristikama.getIsbn());
+                trenutna.setBrojStranica(knjigaSaStarimKarakteristikama.getBrojStranica());
+                trenutna.setDatumIzdanja(knjigaSaStarimKarakteristikama.getDatumIzdanja());
+                //tabelaKnjiga.refresh();
+                setTekstStatusa("Knjiga nije izmijenjena.");
+            }
+        });
     }
 
     public void deleteEvent(ActionEvent actionEvent) {
@@ -110,25 +169,6 @@ public class GlavnaController {
     }
 
     public void aboutEvent(ActionEvent actionEvent) {
-        prikazAboutProzora();
-    }
-
-    private void prikazFormulara() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("biblioteka.fxml"));
-            loader.setController(new BibliotekaController(bibliotekaModel));
-            Parent root = loader.load();
-            Stage noviStage = new Stage();
-            noviStage.setResizable(false);
-            noviStage.setTitle("Izmjena knjige");
-            noviStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-            noviStage.show();
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-    }
-
-    private void prikazAboutProzora() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("about.fxml"));
             Parent root = loader.load();
