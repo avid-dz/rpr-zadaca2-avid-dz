@@ -1,9 +1,12 @@
 package ba.unsa.etf.rpr.zadaca2;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
 
@@ -23,9 +26,12 @@ public class BibliotekaController {
     private boolean validanIsbnKnjige;
     public DatePicker knjigaDatum;
     private boolean validanDatumIzdanjaKnjige;
+    public Spinner<Integer> knjigaBrojStranica;
+    private ObjectProperty<Integer> knjigaBrojStranicaObject;
 
     public BibliotekaController(BibliotekaModel m) {
         model = m;
+        knjigaBrojStranicaObject = model.getTrenutnaKnjiga().brojStranicaProperty().asObject();
     }
 
     @FXML
@@ -34,6 +40,9 @@ public class BibliotekaController {
         knjigaNaslov.textProperty().bindBidirectional(model.getTrenutnaKnjiga().naslovProperty());
         knjigaIsbn.textProperty().bindBidirectional(model.getTrenutnaKnjiga().isbnProperty());
         knjigaDatum.valueProperty().bindBidirectional(model.getTrenutnaKnjiga().datumIzdanjaProperty());
+        knjigaBrojStranica.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory
+                (0, 10000, model.getTrenutnaKnjiga().getBrojStranica()));
+        knjigaBrojStranica.getValueFactory().valueProperty().bindBidirectional(knjigaBrojStranicaObject);
 
         validacijaPoljaAutor(knjigaAutor.getText());
         validacijaPoljaNaslov(knjigaNaslov.getText());
