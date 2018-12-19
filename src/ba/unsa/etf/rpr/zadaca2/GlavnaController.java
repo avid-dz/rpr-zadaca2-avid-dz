@@ -57,33 +57,15 @@ public class GlavnaController {
                 bibliotekaModel.setTrenutnaKnjiga(n);
             }
         });
-        tabelaKnjiga.setOnMouseClicked((MouseEvent event) -> {
-            if (event.getButton().equals(MouseButton.PRIMARY)) {
-                handleRowSelect();
-            }
+        tabelaKnjiga.setRowFactory(tv -> {
+            TableRow<Knjiga> redTabele = new TableRow<>();
+            redTabele.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!redTabele.isEmpty())) {
+                    changeEvent();
+                }
+            });
+            return redTabele;
         });
-    }
-
-    private Knjiga temp;
-    private Date vrijemeProslogKlika;
-    @FXML
-    private void handleRowSelect() {
-        Knjiga red = (Knjiga) tabelaKnjiga.getSelectionModel().getSelectedItem();
-        if (red == null) return;
-        if (red != temp){
-            temp = red;
-            vrijemeProslogKlika = new Date();
-        }
-        else if (red == temp) {
-            Date now = new Date();
-            long razlika = now.getTime() - vrijemeProslogKlika.getTime();
-            if (razlika < 3500) {   //    ako je naredni klik nakon prethodnog registrovan nakon manje od 3500ms
-                changeEvent();
-            }
-            else {
-                vrijemeProslogKlika = new Date();
-            }
-        }
     }
 
     public void doSave(File file) {
@@ -114,7 +96,6 @@ public class GlavnaController {
     public void addEvent() {
         TableView.TableViewSelectionModel tableViewSelectionModel = tabelaKnjiga.getSelectionModel();
         Knjiga nova = new Knjiga("", "", "", 0);
-        nova.setDatumIzdanja(null);
         bibliotekaModel.addKnjiga(nova);
         bibliotekaModel.setTrenutnaKnjiga(nova);
         Stage noviStage = null;

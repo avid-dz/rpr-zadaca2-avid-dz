@@ -74,10 +74,7 @@ public class BibliotekaController {
         return !n.trim().equals("");
     }
 
-    private boolean validanDatumIzdanja(LocalDate n) {
-        if (n == null) return false;
-        return !n.isAfter(LocalDate.now());
-    }
+    private boolean validanDatumIzdanja(LocalDate n) { return !n.isAfter(LocalDate.now()); }
 
     private void validacijaPoljaNaslov(String n) {
         if (validanNaslov(n)) {
