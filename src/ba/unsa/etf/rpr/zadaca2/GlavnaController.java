@@ -14,7 +14,12 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
@@ -22,6 +27,7 @@ public class GlavnaController {
 
     private BibliotekaModel bibliotekaModel;
     public TableView tabelaKnjiga;
+    public TableColumn kolonaDatum;
     public Label statusMsg;
     private SimpleStringProperty tekstStatusa;
     private BibliotekaController bibliotekaController;
@@ -68,6 +74,42 @@ public class GlavnaController {
             });
             return redTabele;
         });
+
+        kolonaDatum.setCellFactory((TableColumn<Knjiga, String> column) -> {
+            return new TableCell<Knjiga, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || empty) {
+                        setText(null);
+                    } else {
+                        setText(uStringIzDatuma(uIspravanFormat(item)));
+                    }
+                }
+            };
+        });
+    }
+
+    public String uStringIzDatuma(LocalDate datumZaPretvaranje) {
+        if (datumZaPretvaranje != null) {
+            try {
+                return DateTimeFormatter.ofPattern("dd. MM. yyyy").format(datumZaPretvaranje);
+            } catch (DateTimeException dte) {
+                dte.printStackTrace();
+            }
+        }
+        return "";
+    }
+
+    public LocalDate uIspravanFormat(String string) {
+        if (string != null && !string.isEmpty()) {
+            try {
+                return LocalDate.parse(string, DateTimeFormatter.ofPattern("dd. MM. yyyy"));
+            } catch (DateTimeParseException dtpe) {
+                dtpe.printStackTrace();
+            }
+        }
+        return null;
     }
 
     public void doSave(File file) {

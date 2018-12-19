@@ -32,7 +32,7 @@
                     <PropertyValueFactory property="naslov" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn maxWidth="1.7976931348623157E308" prefWidth="200.0" text="Datum izdanja">
+            <TableColumn fx:id="kolonaDatum" maxWidth="1.7976931348623157E308" prefWidth="200.0" text="Datum izdanja">
                 <cellValueFactory>
                     <PropertyValueFactory property="datumIzdanja" />
                 </cellValueFactory>
