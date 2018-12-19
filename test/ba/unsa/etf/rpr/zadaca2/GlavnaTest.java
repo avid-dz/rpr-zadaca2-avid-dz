@@ -98,9 +98,9 @@ class GlavnaTest {
         controller.doSave(test);
         try {
             String content = new String(Files.readAllBytes(Paths.get(test.getPath())));
-            String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><biblioteka/>";
+            String expected = "<biblioteka/>";
 
-            assertEquals(expected, content);
+            assertTrue(content.contains(expected));
         } catch(Exception e) {
             fail("Nije uspjelo čitanje datoteke");
         }
@@ -157,10 +157,10 @@ class GlavnaTest {
         int brojKnjiga = model.getKnjige().size();
 
         String content = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        content += "<videoteka>";
+        content += "<biblioteka>";
         content += "<knjiga brojStranica=\"1\"><autor>A</autor><naslov>B</naslov><isbn>C</isbn><datum>20. 12. 2018</datum></knjiga>";
         content += "<knjiga brojStranica=\"2\"><autor>X</autor><naslov>Y</naslov><isbn>Z</isbn><datum>30. 1. 1910</datum></knjiga>";
-        content += "</videoteka>";
+        content += "</biblioteka>";
 
         try {
             PrintWriter out = new PrintWriter("test.xml");
@@ -203,10 +203,10 @@ class GlavnaTest {
         int brojKnjiga = model.getKnjige().size();
 
         String content = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        content += "<videoteka>";
+        content += "<biblioteka>";
         content += "<knjiga brojStranica=\"1\"><visak /><autor>A</autor><naslov>B</naslov><isbn>C</isbn><datum>20. 12. 2018</datum></knjiga>";
         content += "<knjiga brojStranica=\"2\"><autor>X</autor><naslov>Y</naslov><isbn>Z</isbn><datum>30. 1. 1910</datum></knjiga>";
-        content += "</videoteka>";
+        content += "</biblioteka>";
 
         try {
             PrintWriter out = new PrintWriter("test.xml");
@@ -249,10 +249,10 @@ class GlavnaTest {
         int brojKnjiga = model.getKnjige().size();
 
         String content = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
-        content += "<videoteka>";
+        content += "<biblioteka>";
         content += "<knjiga brojStranica=\"1\"><naslov>B</naslov><isbn>C</isbn><datum>20. 12. 2018</datum></knjiga>";
         content += "<knjiga brojStranica=\"2\"><autor>X</autor><naslov>Y</naslov><isbn>Z</isbn><datum>30. 1. 1910</datum></knjiga>";
-        content += "</videoteka>";
+        content += "</biblioteka>";
 
         try {
             PrintWriter out = new PrintWriter("test.xml");
@@ -569,9 +569,11 @@ class GlavnaTest {
             if (bf.getFill().equals(yellowgreen))
                 colorFound = true;
 
-        // Unosimo i autora - sada je kompletna forma validna
+        // Unosimo i autora i isbn - sada je kompletna forma validna
         robot.clickOn("#knjigaAutor");
         robot.write("abc");
+        robot.clickOn("#knjigaIsbn");
+        robot.write("1234");
 
         // Zatvaramo prozor
         robot.press(KeyCode.ALT).press(KeyCode.F4).release(KeyCode.F4).release(KeyCode.ALT);
