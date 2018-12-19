@@ -81,6 +81,11 @@ public class GlavnaController {
     }
 
     public void addEvent(ActionEvent actionEvent) {
+        TableView.TableViewSelectionModel tableViewSelectionModel = tabelaKnjiga.getSelectionModel();
+        Knjiga nova = new Knjiga("", "", "", 0);
+        nova.setDatumIzdanja(null);
+        bibliotekaModel.addKnjiga(nova);
+        bibliotekaModel.setTrenutnaKnjiga(nova);
         Stage noviStage = null;
         FXMLLoader loader = null;
         try {
@@ -90,7 +95,7 @@ public class GlavnaController {
             Parent root = loader.load();
             noviStage = new Stage();
             noviStage.setResizable(false);
-            noviStage.setTitle("Izmjena knjige");
+            noviStage.setTitle("Dodavanje nove knjige");
             noviStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             noviStage.show();
             setTekstStatusa("Dodajem novu knjigu.");
@@ -100,11 +105,14 @@ public class GlavnaController {
         if (noviStage == null) return;
         noviStage.setOnCloseRequest(event -> {
             if (bibliotekaController.validnaForma()) {
+                tabelaKnjiga.getSelectionModel().select(bibliotekaModel.getTrenutnaKnjiga());
                 setTekstStatusa("Knjiga dodana.");
             }
             else {
-
+                bibliotekaModel.deleteKnjiga();
                 setTekstStatusa("Knjiga nije dodana.");
+                tabelaKnjiga.refresh();
+                tabelaKnjiga.setSelectionModel(tableViewSelectionModel);
             }
         });
     }

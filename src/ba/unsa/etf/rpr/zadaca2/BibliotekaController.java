@@ -75,6 +75,7 @@ public class BibliotekaController {
     }
 
     private boolean validanDatumIzdanja(LocalDate n) {
+        if (n == null) return false;
         return !n.isAfter(LocalDate.now());
     }
 
