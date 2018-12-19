@@ -142,7 +142,6 @@ public class GlavnaController {
                 trenutna.setIsbn(knjigaSaStarimKarakteristikama.getIsbn());
                 trenutna.setBrojStranica(knjigaSaStarimKarakteristikama.getBrojStranica());
                 trenutna.setDatumIzdanja(knjigaSaStarimKarakteristikama.getDatumIzdanja());
-                //tabelaKnjiga.refresh();
                 setTekstStatusa("Knjiga nije izmijenjena.");
             }
         });
