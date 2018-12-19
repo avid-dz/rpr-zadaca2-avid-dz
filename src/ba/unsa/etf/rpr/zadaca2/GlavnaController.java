@@ -10,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.File;
 
@@ -53,6 +55,11 @@ public class GlavnaController {
                 bibliotekaModel.setTrenutnaKnjiga(n);
             }
         });
+        tabelaKnjiga.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
+                changeEvent();
+            }
+        });
     }
 
     public void doSave(File file) {
@@ -63,24 +70,24 @@ public class GlavnaController {
 
     }
 
-    public void openEvent(ActionEvent actionEvent) {
+    public void openEvent() {
 
     }
 
-    public void saveEvent(ActionEvent actionEvent) {
+    public void saveEvent() {
 
     }
 
-    public void printEvent(ActionEvent actionEvent) {
+    public void printEvent() {
         setTekstStatusa("Štampam knjige na standardni izlaz.");
         bibliotekaModel.ispisiKnjige();
     }
 
-    public void exitEvent(ActionEvent actionEvent) {
+    public void exitEvent() {
         Platform.exit();
     }
 
-    public void addEvent(ActionEvent actionEvent) {
+    public void addEvent() {
         TableView.TableViewSelectionModel tableViewSelectionModel = tabelaKnjiga.getSelectionModel();
         Knjiga nova = new Knjiga("", "", "", 0);
         nova.setDatumIzdanja(null);
@@ -117,7 +124,7 @@ public class GlavnaController {
         });
     }
 
-    public void changeEvent(ActionEvent actionEvent) {
+    public void changeEvent() {
         if (bibliotekaModel.getTrenutnaKnjiga() == null) return;
         Knjiga trenutna = bibliotekaModel.getTrenutnaKnjiga();
         Knjiga knjigaSaStarimKarakteristikama =
@@ -155,7 +162,7 @@ public class GlavnaController {
         });
     }
 
-    public void deleteEvent(ActionEvent actionEvent) {
+    public void deleteEvent() {
         if (bibliotekaModel.getTrenutnaKnjiga() == null) return;
         setTekstStatusa("Brišem knjigu.");
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.OK, ButtonType.CANCEL);
@@ -175,7 +182,7 @@ public class GlavnaController {
         });
     }
 
-    public void aboutEvent(ActionEvent actionEvent) {
+    public void aboutEvent() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("about.fxml"));
             Parent root = loader.load();
