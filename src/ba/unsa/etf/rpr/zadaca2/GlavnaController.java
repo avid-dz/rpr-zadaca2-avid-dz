@@ -15,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.File;
 import java.time.LocalDate;
+import java.util.Date;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
@@ -57,10 +58,32 @@ public class GlavnaController {
             }
         });
         tabelaKnjiga.setOnMouseClicked((MouseEvent event) -> {
-            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2) {
-                changeEvent();
+            if (event.getButton().equals(MouseButton.PRIMARY)) {
+                handleRowSelect();
             }
         });
+    }
+
+    private Knjiga temp;
+    private Date vrijemeProslogKlika;
+    @FXML
+    private void handleRowSelect() {
+        Knjiga red = (Knjiga) tabelaKnjiga.getSelectionModel().getSelectedItem();
+        if (red == null) return;
+        if (red != temp){
+            temp = red;
+            vrijemeProslogKlika = new Date();
+        }
+        else if (red == temp) {
+            Date now = new Date();
+            long razlika = now.getTime() - vrijemeProslogKlika.getTime();
+            if (razlika < 3500) {   //    ako je naredni klik nakon prethodnog registrovan nakon manje od 3500ms
+                changeEvent();
+            }
+            else {
+                vrijemeProslogKlika = new Date();
+            }
+        }
     }
 
     public void doSave(File file) {
