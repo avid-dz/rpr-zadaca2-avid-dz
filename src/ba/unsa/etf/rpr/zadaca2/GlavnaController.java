@@ -10,12 +10,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -75,18 +72,22 @@ public class GlavnaController {
             return redTabele;
         });
 
-        kolonaDatum.setCellFactory((TableColumn<Knjiga, String> column) -> {
-            return new TableCell<Knjiga, String>() {
-                @Override
-                protected void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (item == null || empty) {
-                        setText(null);
-                    } else {
-                        setText(uStringIzDatuma(uIspravanFormat(item)));
+        kolonaDatum.setCellFactory(new Callback<TableColumn<Knjiga, LocalDate>, TableCell<Knjiga, LocalDate>>() {
+            @Override
+            public TableCell<Knjiga, LocalDate> call(TableColumn<Knjiga, LocalDate> param) {
+                return new TableCell<Knjiga, LocalDate>() {
+                    @Override
+                    protected void updateItem(LocalDate datum, boolean prazan) {
+                        super.updateItem(datum, prazan);
+                        if (datum == null || prazan) {
+                            setText(null);
+                        }
+                        else {
+                            setText(DateTimeFormatter.ofPattern("dd. MM. yyyy").format(datum));
+                        }
                     }
-                }
-            };
+                };
+            }
         });
     }
 
