@@ -13,13 +13,9 @@ import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-
-import javax.swing.*;
 import java.io.File;
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
@@ -69,7 +65,7 @@ public class GlavnaController {
             TableRow<Knjiga> redTabele = new TableRow<>();
             redTabele.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!redTabele.isEmpty())) {
-                    changeEvent();
+                    promjenaKnjige();
                 }
             });
             return redTabele;
@@ -129,7 +125,7 @@ public class GlavnaController {
         Platform.exit();
     }
 
-    public void addEvent() {
+    public void addEvent(ActionEvent actionEvent) {
         TableView.TableViewSelectionModel tableViewSelectionModel = tabelaKnjiga.getSelectionModel();
         Knjiga nova = new Knjiga("", "", "", 0);
         bibliotekaModel.addKnjiga(nova);
@@ -165,7 +161,43 @@ public class GlavnaController {
         });
     }
 
-    public void changeEvent() {
+    public void changeEvent(ActionEvent actionEvent) { promjenaKnjige(); }
+
+    public void deleteEvent(ActionEvent actionEvent) {
+        if (bibliotekaModel.getTrenutnaKnjiga() == null) return;
+        setTekstStatusa("Brišem knjigu.");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.OK, ButtonType.CANCEL);
+        alert.setTitle("Brisanje knjige");
+        alert.setHeaderText("Da li ste sigurni da želite obrisati trenutnu knjigu?");
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                bibliotekaModel.deleteKnjiga();
+                setTekstStatusa("Knjiga obrisana.");
+                tabelaKnjiga.refresh();
+                tabelaKnjiga.getSelectionModel().clearSelection();
+            }
+            else if (response == ButtonType.CANCEL) {
+                alert.close();
+                setTekstStatusa("Knjiga nije obrisana.");
+            }
+        });
+    }
+
+    public void aboutEvent(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("about.fxml"));
+            Parent root = loader.load();
+            Stage noviStage = new Stage();
+            noviStage.setResizable(false);
+            noviStage.setTitle("About");
+            noviStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            noviStage.show();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public void promjenaKnjige() {
         if (bibliotekaModel.getTrenutnaKnjiga() == null) return;
         Knjiga trenutna = bibliotekaModel.getTrenutnaKnjiga();
         Knjiga knjigaSaStarimKarakteristikama =
@@ -201,39 +233,5 @@ public class GlavnaController {
                 setTekstStatusa("Knjiga nije izmijenjena.");
             }
         });
-    }
-
-    public void deleteEvent() {
-        if (bibliotekaModel.getTrenutnaKnjiga() == null) return;
-        setTekstStatusa("Brišem knjigu.");
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.OK, ButtonType.CANCEL);
-        alert.setTitle("Brisanje knjige");
-        alert.setHeaderText("Da li ste sigurni da želite obrisati trenutnu knjigu?");
-        alert.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-                bibliotekaModel.deleteKnjiga();
-                setTekstStatusa("Knjiga obrisana.");
-                tabelaKnjiga.refresh();
-                tabelaKnjiga.getSelectionModel().clearSelection();
-            }
-            else if (response == ButtonType.CANCEL) {
-                alert.close();
-                setTekstStatusa("Knjiga nije obrisana.");
-            }
-        });
-    }
-
-    public void aboutEvent(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("about.fxml"));
-            Parent root = loader.load();
-            Stage noviStage = new Stage();
-            noviStage.setResizable(false);
-            noviStage.setTitle("About");
-            noviStage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
-            noviStage.show();
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
     }
 }
