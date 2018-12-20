@@ -10,8 +10,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+
+import javax.swing.*;
 import java.io.File;
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -121,12 +124,22 @@ public class GlavnaController {
 
     }
 
-    public void openEvent() {
-
+    public void openEvent(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open");
+        fileChooser.getExtensionFilters().addAll
+                (new FileChooser.ExtensionFilter("XML File", "*.xml"));
+        File izabraniFajl = fileChooser.showOpenDialog(new Stage());
+        doOpen(izabraniFajl);
     }
 
-    public void saveEvent() {
-
+    public void saveEvent(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save");
+        fileChooser.getExtensionFilters().addAll
+                (new FileChooser.ExtensionFilter("XML File", "*.xml"));
+        File izabraniFajl = fileChooser.showSaveDialog(new Stage());
+        doSave(izabraniFajl);
     }
 
     public void printEvent() {
