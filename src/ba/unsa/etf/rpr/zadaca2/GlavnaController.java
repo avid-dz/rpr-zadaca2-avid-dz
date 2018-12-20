@@ -94,17 +94,6 @@ public class GlavnaController {
         });
     }
 
-    public String uStringIzDatuma(LocalDate datumZaPretvaranje) {
-        if (datumZaPretvaranje != null) {
-            try {
-                return DateTimeFormatter.ofPattern("dd. MM. yyyy").format(datumZaPretvaranje);
-            } catch (DateTimeException dte) {
-                dte.printStackTrace();
-            }
-        }
-        return "";
-    }
-
     public void doSave(File file) {
 
     }
