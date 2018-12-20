@@ -142,12 +142,12 @@ public class GlavnaController {
         doSave(izabraniFajl);
     }
 
-    public void printEvent() {
+    public void printEvent(ActionEvent actionEvent) {
         setTekstStatusa("Štampam knjige na standardni izlaz.");
         bibliotekaModel.ispisiKnjige();
     }
 
-    public void exitEvent() {
+    public void exitEvent(ActionEvent actionEvent) {
         Platform.exit();
     }
 
@@ -245,7 +245,7 @@ public class GlavnaController {
         });
     }
 
-    public void aboutEvent() {
+    public void aboutEvent(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("about.fxml"));
             Parent root = loader.load();
