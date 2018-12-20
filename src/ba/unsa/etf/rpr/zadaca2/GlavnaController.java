@@ -105,17 +105,6 @@ public class GlavnaController {
         return "";
     }
 
-    public LocalDate uIspravanFormat(String string) {
-        if (string != null && !string.isEmpty()) {
-            try {
-                return LocalDate.parse(string, DateTimeFormatter.ofPattern("dd. MM. yyyy"));
-            } catch (DateTimeParseException dtpe) {
-                dtpe.printStackTrace();
-            }
-        }
-        return null;
-    }
-
     public void doSave(File file) {
 
     }
