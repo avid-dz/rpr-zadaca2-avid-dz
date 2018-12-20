@@ -166,18 +166,18 @@ public class GlavnaController {
     public void deleteEvent(ActionEvent actionEvent) {
         if (bibliotekaModel.getTrenutnaKnjiga() == null) return;
         setTekstStatusa("Brišem knjigu.");
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.OK, ButtonType.CANCEL);
-        alert.setTitle("Brisanje knjige");
-        alert.setHeaderText("Da li ste sigurni da želite obrisati trenutnu knjigu?");
-        alert.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
+        Alert potvrda = new Alert(Alert.AlertType.CONFIRMATION, "", ButtonType.OK, ButtonType.CANCEL);
+        potvrda.setTitle("Brisanje knjige");
+        potvrda.setHeaderText("Da li ste sigurni da želite obrisati trenutnu knjigu?");
+        potvrda.showAndWait().ifPresent(izborKorisnika -> {
+            if (izborKorisnika == ButtonType.OK) {
                 bibliotekaModel.deleteKnjiga();
                 setTekstStatusa("Knjiga obrisana.");
                 tabelaKnjiga.refresh();
                 tabelaKnjiga.getSelectionModel().clearSelection();
             }
-            else if (response == ButtonType.CANCEL) {
-                alert.close();
+            else if (izborKorisnika == ButtonType.CANCEL) {
+                potvrda.close();
                 setTekstStatusa("Knjiga nije obrisana.");
             }
         });
