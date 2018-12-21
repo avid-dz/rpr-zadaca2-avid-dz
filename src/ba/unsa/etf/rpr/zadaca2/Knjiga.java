@@ -77,6 +77,7 @@ public class Knjiga {
         this.autor.set(autor);
     }
 
+
     public int getBrojStranica() {
         return brojStranica.get();
     }
@@ -89,11 +90,6 @@ public class Knjiga {
         this.brojStranica.set(brojStranica);
     }
 
-    @Override
-    public String toString() {
-        return autor.get() + ", " + naslov.get() + ", " + isbn.get() + ", " + (brojStranica.get()) + ", "
-                + DateTimeFormatter.ofPattern("dd. MM. yyyy").format(datumIzdanja.get());
-    }
 
     public LocalDate getDatumIzdanja() {
         return datumIzdanja.get();
@@ -105,5 +101,12 @@ public class Knjiga {
 
     public void setDatumIzdanja(LocalDate datumIzdanja) {
         this.datumIzdanja.set(datumIzdanja);
+    }
+
+
+    @Override
+    public String toString() {
+        return autor.get() + ", " + naslov.get() + ", " + isbn.get() + ", " + (brojStranica.get()) + ", "
+                + DateTimeFormatter.ofPattern("dd. MM. yyyy").format(datumIzdanja.get());
     }
 }
