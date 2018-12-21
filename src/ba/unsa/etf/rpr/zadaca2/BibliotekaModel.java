@@ -4,10 +4,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Collection;
 
 public class BibliotekaModel {
     private ObservableList<Knjiga> knjige = FXCollections.observableArrayList();
