@@ -147,6 +147,7 @@ public class GlavnaController {
             Element korijenskiElement = document.getDocumentElement();
             NodeList listaKnjiga = korijenskiElement.getChildNodes();
             int brojKnjiga = listaKnjiga.getLength();
+            int brojUcitanihKnjiga = 0;
             for (int i = 0; i < brojKnjiga; i++) {
                 Node dijeteKnjiga = listaKnjiga.item(i);
                 if (dijeteKnjiga instanceof Element) {
@@ -200,7 +201,12 @@ public class GlavnaController {
                         return;
                     }
                     novaListaKnjiga.add(knjiga);
+                    brojUcitanihKnjiga = brojUcitanihKnjiga + 1;
                 }
+            }
+            if (brojKnjiga != brojUcitanihKnjiga) {
+                prikazProzoraZaGresku();
+                return;
             }
         } catch (Exception e) {
             prikazProzoraZaGresku();
