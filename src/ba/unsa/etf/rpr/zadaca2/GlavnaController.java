@@ -136,6 +136,13 @@ public class GlavnaController {
     }
 
     public void doOpen(File file) {
+        try {
+            DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            Document document = documentBuilder.parse(file);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -79,9 +79,7 @@ public class BibliotekaController {
                 if (datumZaPretvaranje != null) {
                     try {
                         return DateTimeFormatter.ofPattern("dd. MM. yyyy").format(datumZaPretvaranje);
-                    } catch (DateTimeException dte) {
-                        dte.printStackTrace();
-                    }
+                    } catch (DateTimeException dte) { }
                 }
                 knjigaDatum.getStyleClass().removeAll("validField");
                 knjigaDatum.getStyleClass().add("invalidField");
@@ -93,9 +91,7 @@ public class BibliotekaController {
                 if (string != null && !string.isEmpty()) {
                     try {
                         return LocalDate.parse(string, DateTimeFormatter.ofPattern("dd. MM. yyyy"));
-                    } catch (DateTimeParseException dtpe) {
-                        dtpe.printStackTrace();
-                    }
+                    } catch (DateTimeParseException dtpe) { }
                 }
                 knjigaDatum.getStyleClass().removeAll("validField");
                 knjigaDatum.getStyleClass().add("invalidField");
@@ -117,7 +113,10 @@ public class BibliotekaController {
         return !n.trim().equals("");
     }
 
-    private boolean validanDatumIzdanja(LocalDate n) { return !n.isAfter(LocalDate.now()); }
+    private boolean validanDatumIzdanja(LocalDate n) {
+        if (n == null) return false;
+        return !n.isAfter(LocalDate.now());
+    }
 
     private void validacijaPoljaNaslov(String n) {
         if (validanNaslov(n)) {
