@@ -69,31 +69,13 @@
 }
 
 .tbButton{
-    /*-fx-border-color: transparent;*/
     -fx-border-width: 0;
     -fx-background-radius: 0;
     -fx-background-color: transparent;
-    -fx-font-size: 1em; /* 12 */
-    -fx-text-fill: #828282;
-}
-
-.tbButton:focused {
-    -fx-border-color: transparent, black;
-    /*-fx-border-width: 1, 1;*/
-    -fx-border-style: solid, segments(1, 2);
-    -fx-border-radius: 0, 0;
-    -fx-border-insets: 1 1 1 1, 0;
 }
 
 .tbButton:pressed {
     -fx-background-color: blue;
-    -fx-text-fill: white;
-}
-
-.groupBox {
-      -fx-border-color: lightGrey;
-      -fx-border-width: 2;
-    -fx-border-radius: 2px;
 }
 
 .statusBar {

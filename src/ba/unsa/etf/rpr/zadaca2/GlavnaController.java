@@ -152,38 +152,58 @@ public class GlavnaController {
                 if (dijeteKnjiga instanceof Element) {
                     Knjiga knjiga = new Knjiga();
                     Element knjigaElement = (Element) dijeteKnjiga;
+                    if (!knjigaElement.hasAttribute("brojStranica")) {
+                        prikazProzoraZaGresku();
+                        return;
+                    }
+                    if (knjigaElement.getAttributes().getLength() != 1) {
+                        prikazProzoraZaGresku();
+                        return;
+                    }
                     String brojStanicaKnjige = knjigaElement.getAttribute("brojStranica");
                     knjiga.setBrojStranica(Integer.parseInt(brojStanicaKnjige));
                     NodeList listaDjeceOdKnjige = knjigaElement.getChildNodes();
                     int brojDjeceOdKnjige = listaDjeceOdKnjige.getLength();
+                    if (brojDjeceOdKnjige != 4) {
+                        prikazProzoraZaGresku();
+                        return;
+                    }
+                    boolean autorPronadjen = false;
+                    boolean naslovPronadjen = false;
+                    boolean isbnPronadjen = false;
+                    boolean datumPronadjen = false;
                     for (int j = 0; j < brojDjeceOdKnjige; j++) {
                         Node dijeteOdKnjige = listaDjeceOdKnjige.item(j);
                         if (dijeteOdKnjige instanceof Element) {
                             Element dijeteOdKnjigeElement = (Element) dijeteOdKnjige;
                             if (dijeteOdKnjigeElement.getTagName().equals("autor")) {
                                 knjiga.setAutor(dijeteOdKnjigeElement.getTextContent());
+                                autorPronadjen = true;
                             }
                             else if (dijeteOdKnjigeElement.getTagName().equals("naslov")) {
                                 knjiga.setNaslov(dijeteOdKnjigeElement.getTextContent());
+                                naslovPronadjen = true;
                             }
                             else if (dijeteOdKnjigeElement.getTagName().equals("isbn")) {
                                 knjiga.setIsbn(dijeteOdKnjigeElement.getTextContent());
+                                isbnPronadjen = true;
                             }
                             else if (dijeteOdKnjigeElement.getTagName().equals("datum")) {
                                 knjiga.setDatumIzdanja(LocalDate.parse(dijeteOdKnjigeElement.getTextContent(),
                                         DateTimeFormatter.ofPattern("dd. MM. yyyy")));
+                                datumPronadjen = true;
                             }
                         }
+                    }
+                    if (!autorPronadjen || !naslovPronadjen || !isbnPronadjen || !datumPronadjen) {
+                        prikazProzoraZaGresku();
+                        return;
                     }
                     novaListaKnjiga.add(knjiga);
                 }
             }
         } catch (Exception e) {
-            Alert greska = new Alert(Alert.AlertType.ERROR);
-            greska.setTitle("Greška");
-            greska.setHeaderText("Neispravan format datoteke");
-            greska.setContentText("Datoteka je u neispravnom formatu ili sadrži besmislene podatke.");
-            greska.show();
+            prikazProzoraZaGresku();
             return;
         }
         bibliotekaModel.setKnjige(novaListaKnjiga);
@@ -326,5 +346,13 @@ public class GlavnaController {
                 setTekstStatusa("Knjiga nije izmijenjena.");
             }
         });
+    }
+
+    private void prikazProzoraZaGresku() {
+        Alert greska = new Alert(Alert.AlertType.ERROR);
+        greska.setTitle("Greška");
+        greska.setHeaderText("Neispravan format datoteke");
+        greska.setContentText("Provjerite format datoteke ili probajte sa drugom datotekom.");
+        greska.show();
     }
 }
