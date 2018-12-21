@@ -105,6 +105,7 @@ public class GlavnaController {
     }
 
     public void doSave(File file) {
+        if (file == null) return;
         try {
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document document = documentBuilder.newDocument();
@@ -140,6 +141,7 @@ public class GlavnaController {
     }
 
     public void doOpen(File file) {
+        if (file == null) return;
         ObservableList<Knjiga> novaListaKnjiga = FXCollections.observableArrayList();
         try {
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
