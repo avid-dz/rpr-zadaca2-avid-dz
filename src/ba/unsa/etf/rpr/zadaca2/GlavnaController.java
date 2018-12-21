@@ -245,7 +245,7 @@ public class GlavnaController {
     }
 
     public void addEvent(ActionEvent actionEvent) {
-        TableView.TableViewSelectionModel tableViewSelectionModel = tabelaKnjiga.getSelectionModel();
+        Knjiga prethodnoSelektovanaKnjiga = bibliotekaModel.getTrenutnaKnjiga();
         Knjiga nova = new Knjiga("", "", "", 0);
         bibliotekaModel.addKnjiga(nova);
         bibliotekaModel.setTrenutnaKnjiga(nova);
@@ -275,7 +275,8 @@ public class GlavnaController {
                 bibliotekaModel.deleteKnjiga();
                 setTekstStatusa("Knjiga nije dodana.");
                 tabelaKnjiga.refresh();
-                tabelaKnjiga.setSelectionModel(tableViewSelectionModel);
+                bibliotekaModel.setTrenutnaKnjiga(prethodnoSelektovanaKnjiga);
+                tabelaKnjiga.getSelectionModel().select(prethodnoSelektovanaKnjiga);
             }
         });
     }
