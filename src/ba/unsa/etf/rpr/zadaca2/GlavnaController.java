@@ -13,6 +13,16 @@ import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -91,7 +101,38 @@ public class GlavnaController {
     }
 
     public void doSave(File file) {
-
+        try {
+            DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            Document document = documentBuilder.newDocument();
+            Element korijenskiElement = document.createElement("biblioteka");
+            document.appendChild(korijenskiElement);
+            for (Knjiga knjiga : bibliotekaModel.getKnjige()) {
+                Element knjigaElement = document.createElement("knjiga");
+                korijenskiElement.appendChild(knjigaElement);
+                knjigaElement.setAttribute("brojStranica", Integer.toString(knjiga.getBrojStranica()));
+                Element autorElement = document.createElement("autor");
+                autorElement.appendChild(document.createTextNode(knjiga.getAutor()));
+                knjigaElement.appendChild(autorElement);
+                Element naslovElement = document.createElement("naslov");
+                naslovElement.appendChild(document.createTextNode(knjiga.getNaslov()));
+                knjigaElement.appendChild(naslovElement);
+                Element isbnElement = document.createElement("isbn");
+                isbnElement.appendChild(document.createTextNode(knjiga.getIsbn()));
+                knjigaElement.appendChild(isbnElement);
+                Element datumElement = document.createElement("datum");
+                datumElement.appendChild(document.createTextNode(DateTimeFormatter.ofPattern("dd. MM. yyyy")
+                        .format(knjiga.getDatumIzdanja())));
+                knjigaElement.appendChild(datumElement);
+            }
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            DOMSource domSource = new DOMSource(document);
+            StreamResult streamResult = new StreamResult(file);
+            transformer.transform(domSource, streamResult);
+        } catch (ParserConfigurationException pcException) {
+            pcException.printStackTrace();
+        } catch (TransformerException tException) {
+            tException.printStackTrace();
+        }
     }
 
     public void doOpen(File file) {
