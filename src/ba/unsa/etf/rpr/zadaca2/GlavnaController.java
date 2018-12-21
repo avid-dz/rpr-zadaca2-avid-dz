@@ -40,7 +40,7 @@ public class GlavnaController {
     public TableColumn kolonaDatum;
     public Label statusMsg;
     private SimpleStringProperty tekstStatusa;
-    private BibliotekaController bibliotekaController;
+    private FormularController formularController;
 
     public String getTekstStatusa() {
         return tekstStatusa.get();
@@ -57,7 +57,7 @@ public class GlavnaController {
     public GlavnaController(BibliotekaModel bibliotekaModel) {
         this.bibliotekaModel = bibliotekaModel;
         tekstStatusa = new SimpleStringProperty("");
-        bibliotekaController = null;
+        formularController = null;
     }
 
     @FXML
@@ -252,9 +252,9 @@ public class GlavnaController {
         Stage noviStage = null;
         FXMLLoader loader = null;
         try {
-            loader = new FXMLLoader(getClass().getResource("biblioteka.fxml"));
-            bibliotekaController = new BibliotekaController(bibliotekaModel);
-            loader.setController(bibliotekaController);
+            loader = new FXMLLoader(getClass().getResource("formular.fxml"));
+            formularController = new FormularController(bibliotekaModel);
+            loader.setController(formularController);
             Parent root = loader.load();
             noviStage = new Stage();
             noviStage.setResizable(false);
@@ -267,7 +267,7 @@ public class GlavnaController {
         }
         if (noviStage == null) return;
         noviStage.setOnCloseRequest(event -> {
-            if (bibliotekaController.validnaForma()) {
+            if (formularController.validnaForma()) {
                 tabelaKnjiga.getSelectionModel().select(bibliotekaModel.getTrenutnaKnjiga());
                 setTekstStatusa("Knjiga dodana.");
             }
@@ -326,9 +326,9 @@ public class GlavnaController {
         Stage noviStage = null;
         FXMLLoader loader = null;
         try {
-            loader = new FXMLLoader(getClass().getResource("biblioteka.fxml"));
-            bibliotekaController = new BibliotekaController(bibliotekaModel);
-            loader.setController(bibliotekaController);
+            loader = new FXMLLoader(getClass().getResource("formular.fxml"));
+            formularController = new FormularController(bibliotekaModel);
+            loader.setController(formularController);
             Parent root = loader.load();
             noviStage = new Stage();
             noviStage.setResizable(false);
@@ -341,7 +341,7 @@ public class GlavnaController {
         }
         if (noviStage == null) return;
         noviStage.setOnCloseRequest(event -> {
-            if (bibliotekaController.validnaForma()) {
+            if (formularController.validnaForma()) {
                 setTekstStatusa("Knjiga izmijenjena.");
             }
             else {

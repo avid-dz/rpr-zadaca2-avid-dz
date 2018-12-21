@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class BibliotekaController {
+public class FormularController {
 
     private BibliotekaModel model;
     public TextField knjigaAutor;
@@ -28,7 +28,7 @@ public class BibliotekaController {
     public Spinner<Integer> knjigaBrojStranica;
     private ObjectProperty<Integer> knjigaBrojStranicaObject;
 
-    public BibliotekaController(BibliotekaModel m) {
+    public FormularController(BibliotekaModel m) {
         model = m;
         knjigaBrojStranicaObject = model.getTrenutnaKnjiga().brojStranicaProperty().asObject();
     }
