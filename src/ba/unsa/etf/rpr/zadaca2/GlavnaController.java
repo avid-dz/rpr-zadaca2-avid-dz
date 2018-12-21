@@ -321,8 +321,8 @@ public class GlavnaController {
         if (bibliotekaModel.getTrenutnaKnjiga() == null) return;
         Knjiga trenutna = bibliotekaModel.getTrenutnaKnjiga();
         Knjiga knjigaSaStarimKarakteristikama =
-                new Knjiga(trenutna.getAutor(), trenutna.getNaslov(), trenutna.getIsbn(), trenutna.getBrojStranica());
-        knjigaSaStarimKarakteristikama.setDatumIzdanja(trenutna.getDatumIzdanja());
+                new Knjiga(trenutna.getAutor(), trenutna.getNaslov(), trenutna.getIsbn(),
+                        trenutna.getBrojStranica(), trenutna.getDatumIzdanja());
         Stage noviStage = null;
         FXMLLoader loader = null;
         try {

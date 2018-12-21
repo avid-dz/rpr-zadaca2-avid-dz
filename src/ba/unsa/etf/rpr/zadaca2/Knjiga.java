@@ -31,6 +31,14 @@ public class Knjiga {
         datumIzdanja = new SimpleObjectProperty<>(LocalDate.now());
     }
 
+    public Knjiga(String a, String n, String i, int b, LocalDate d) {
+        autor = new SimpleStringProperty(a);
+        naslov = new SimpleStringProperty(n);
+        isbn = new SimpleStringProperty(i);
+        brojStranica = new SimpleIntegerProperty(b);
+        datumIzdanja = new SimpleObjectProperty<>(d);
+    }
+
     public String getIsbn() {
         return isbn.get();
     }
