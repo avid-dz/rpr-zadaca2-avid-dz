@@ -29,6 +29,10 @@ public class BibliotekaModel {
         return knjige;
     }
 
+    public void setKnjige(ObservableList<Knjiga> knjige) {
+        this.knjige = knjige;
+    }
+
     public void ispisiKnjige() {
         System.out.println("Knjige su:");
         for (Knjiga k : knjige)

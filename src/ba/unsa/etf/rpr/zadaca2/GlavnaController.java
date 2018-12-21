@@ -4,6 +4,8 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +17,8 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -136,14 +140,55 @@ public class GlavnaController {
     }
 
     public void doOpen(File file) {
+        ObservableList<Knjiga> novaListaKnjiga = FXCollections.observableArrayList();
         try {
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document document = documentBuilder.parse(file);
-
+            Element korijenskiElement = document.getDocumentElement();
+            NodeList listaKnjiga = korijenskiElement.getChildNodes();
+            int brojKnjiga = listaKnjiga.getLength();
+            for (int i = 0; i < brojKnjiga; i++) {
+                Node dijeteKnjiga = listaKnjiga.item(i);
+                if (dijeteKnjiga instanceof Element) {
+                    Knjiga knjiga = new Knjiga();
+                    Element knjigaElement = (Element) dijeteKnjiga;
+                    String brojStanicaKnjige = knjigaElement.getAttribute("brojStranica");
+                    knjiga.setBrojStranica(Integer.parseInt(brojStanicaKnjige));
+                    NodeList listaDjeceOdKnjige = knjigaElement.getChildNodes();
+                    int brojDjeceOdKnjige = listaDjeceOdKnjige.getLength();
+                    for (int j = 0; j < brojDjeceOdKnjige; j++) {
+                        Node dijeteOdKnjige = listaDjeceOdKnjige.item(j);
+                        if (dijeteOdKnjige instanceof Element) {
+                            Element dijeteOdKnjigeElement = (Element) dijeteOdKnjige;
+                            if (dijeteOdKnjigeElement.getTagName().equals("autor")) {
+                                knjiga.setAutor(dijeteOdKnjigeElement.getTextContent());
+                            }
+                            else if (dijeteOdKnjigeElement.getTagName().equals("naslov")) {
+                                knjiga.setNaslov(dijeteOdKnjigeElement.getTextContent());
+                            }
+                            else if (dijeteOdKnjigeElement.getTagName().equals("isbn")) {
+                                knjiga.setIsbn(dijeteOdKnjigeElement.getTextContent());
+                            }
+                            else if (dijeteOdKnjigeElement.getTagName().equals("datum")) {
+                                knjiga.setDatumIzdanja(LocalDate.parse(dijeteOdKnjigeElement.getTextContent(),
+                                        DateTimeFormatter.ofPattern("dd. MM. yyyy")));
+                            }
+                        }
+                    }
+                    novaListaKnjiga.add(knjiga);
+                }
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            Alert greska = new Alert(Alert.AlertType.ERROR);
+            greska.setTitle("Greška");
+            greska.setHeaderText("Neispravan format datoteke");
+            greska.setContentText("Datoteka je u neispravnom formatu ili sadrži besmislene podatke.");
+            greska.show();
+            return;
         }
-
+        bibliotekaModel.setKnjige(novaListaKnjiga);
+        tabelaKnjiga.setItems(novaListaKnjiga);
+        tabelaKnjiga.getSelectionModel().clearSelection();
     }
 
     public void openEvent(ActionEvent actionEvent) {
