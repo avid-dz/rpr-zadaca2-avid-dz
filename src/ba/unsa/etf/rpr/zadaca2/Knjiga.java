@@ -16,10 +16,10 @@ public class Knjiga {
     private ObjectProperty<LocalDate> datumIzdanja;
 
     public Knjiga() {
-        autor = new SimpleStringProperty("");
-        naslov = new SimpleStringProperty("");
-        isbn = new SimpleStringProperty("");
-        brojStranica = new SimpleIntegerProperty(0);
+        autor = new SimpleStringProperty();
+        naslov = new SimpleStringProperty();
+        isbn = new SimpleStringProperty();
+        brojStranica = new SimpleIntegerProperty();
         datumIzdanja = new SimpleObjectProperty<>();
     }
 
