@@ -1363,11 +1363,11 @@ class GlavnaTest {
     public void testOpen15(FxRobot robot) {
         int brojKnjiga = model.getKnjige().size();
 
-        // Pogrsno zatvaranje taga
+        // Pogresno zatvaranje taga
         String content = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>";
         content += "<biblioteka>";
         content += "<knjiga brojStranica=\"1\" ><autor>X1</pogresno><naslov>B</naslov><isbn>C</isbn><datum>20. 12. 2018</datum></knjiga>";
-        content += "<pogresno brojStranica=\"2\" ><autor>X</autor><naslov>Y</naslov><isbn>Z</isbn><datum>30. 04. 1960</datum></pogresno>";
+        content += "<knjiga brojStranica=\"2\" ><autor>X</autor><naslov>Y</naslov><isbn>Z</isbn><datum>30. 04. 1960</datum></knjiga>";
         content += "</biblioteka>";
 
         try {
@@ -1489,8 +1489,8 @@ class GlavnaTest {
         robot.press(KeyCode.TAB).release(KeyCode.TAB);
         robot.press(KeyCode.TAB).release(KeyCode.TAB);
         robot.press(KeyCode.TAB).release(KeyCode.TAB);
-        robot.press(KeyCode.UP).release(KeyCode.UP); // Biramo 501 strelicom gore
-        robot.press(KeyCode.UP).release(KeyCode.UP); // Biramo 502 strelicom gore
+        robot.press(KeyCode.DOWN).release(KeyCode.DOWN); // Biramo 499 strelicom dolje
+        robot.press(KeyCode.DOWN).release(KeyCode.DOWN); // Biramo 498 strelicom dolje
 
         // Koju vrijednost ima spinner?
         Spinner kbs = robot.lookup("#knjigaBrojStranica").queryAs(Spinner.class);
@@ -1500,11 +1500,11 @@ class GlavnaTest {
         // Zatvaramo prozor
         robot.press(KeyCode.ALT).press(KeyCode.F4).release(KeyCode.F4).release(KeyCode.ALT);
 
-        // Spinner treba imati vrijednost 502
-        assertEquals(new Integer(502), i);
+        // Spinner treba imati vrijednost 498
+        assertEquals(new Integer(498), i);
 
         // Da li je knjiga izmijenjena?
-        String expected = "Ivo Andrić, Travnička hronika, abcd, 502";
+        String expected = "Ivo Andrić, Travnička hronika, abcd, 498";
         assertTrue(model.dajKnjige().contains(expected));
     }
 
