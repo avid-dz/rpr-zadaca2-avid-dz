@@ -698,4 +698,33 @@ class GlavnaTest {
         assertFalse(theStage.isShowing());
     }*/
 
+    @Test
+    void testParsiranjaDatuma1(FxRobot robot) {
+        robot.clickOn("#tabelaKnjiga");
+
+        // Otvaramo Add dijalog tastaturom kroz meni
+        robot.press(KeyCode.ALT).press(KeyCode.E).release(KeyCode.E).press(KeyCode.A).release(KeyCode.A).release(KeyCode.ALT);
+
+        // Čekamo da prozor postane vidljiv
+        robot.lookup("#knjigaDatum").tryQuery().isPresent();
+
+        // Datum bez pocetnih nula kod jednocifrenih datuma i dana
+        robot.clickOn("#knjigaDatum");
+        robot.press(KeyCode.CONTROL).press(KeyCode.A).release(KeyCode.A).release(KeyCode.CONTROL);
+        robot.write("19. 1. 2019");
+        robot.press(KeyCode.ENTER).release(KeyCode.ENTER);
+
+        // Uzmi boju
+        DatePicker datePicker = robot.lookup("#knjigaDatum").queryAs(DatePicker.class);
+        Background bg = datePicker.getEditor().getBackground();
+        Paint lightpink = Paint.valueOf("#ffb6c1");
+        boolean colorFound = false;
+        for (BackgroundFill bf : bg.getFills())
+            if (bf.getFill().equals(lightpink))
+                colorFound = true;
+
+        // Zatvaramo prozor
+        robot.press(KeyCode.ALT).press(KeyCode.F4).release(KeyCode.F4).release(KeyCode.ALT);
+        assertTrue(colorFound);
+    }
 }
