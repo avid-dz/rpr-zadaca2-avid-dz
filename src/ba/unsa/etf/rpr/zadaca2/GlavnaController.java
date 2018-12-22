@@ -42,15 +42,7 @@ public class GlavnaController {
     private SimpleStringProperty tekstStatusa;
     private FormularController formularController;
 
-    public String getTekstStatusa() {
-        return tekstStatusa.get();
-    }
-
-    public SimpleStringProperty tekstStatusaProperty() {
-        return tekstStatusa;
-    }
-
-    public void setTekstStatusa(String tekstStatusa) {
+    private void setTekstStatusa(String tekstStatusa) {
         this.tekstStatusa.set(tekstStatusa);
     }
 
@@ -149,12 +141,14 @@ public class GlavnaController {
             Element korijenskiElement = document.getDocumentElement();
             NodeList listaKnjiga = korijenskiElement.getChildNodes();
             int brojKnjiga = listaKnjiga.getLength();
-            int brojUcitanihKnjiga = 0;
             for (int i = 0; i < brojKnjiga; i++) {
                 Node dijeteKnjiga = listaKnjiga.item(i);
                 if (dijeteKnjiga instanceof Element) {
-                    Knjiga knjiga = new Knjiga();
                     Element knjigaElement = (Element) dijeteKnjiga;
+                    if (!knjigaElement.getTagName().equals("knjiga")) {
+                        prikazProzoraZaGresku();
+                        return;
+                    }
                     if (!knjigaElement.hasAttribute("brojStranica")) {
                         prikazProzoraZaGresku();
                         return;
@@ -163,6 +157,7 @@ public class GlavnaController {
                         prikazProzoraZaGresku();
                         return;
                     }
+                    Knjiga knjiga = new Knjiga();
                     String brojStanicaKnjige = knjigaElement.getAttribute("brojStranica");
                     knjiga.setBrojStranica(Integer.parseInt(brojStanicaKnjige));
                     NodeList listaDjeceOdKnjige = knjigaElement.getChildNodes();
@@ -179,6 +174,10 @@ public class GlavnaController {
                         Node dijeteOdKnjige = listaDjeceOdKnjige.item(j);
                         if (dijeteOdKnjige instanceof Element) {
                             Element dijeteOdKnjigeElement = (Element) dijeteOdKnjige;
+                            if (dijeteOdKnjigeElement.getAttributes().getLength() != 0) {
+                                prikazProzoraZaGresku();
+                                return;
+                            }
                             if (dijeteOdKnjigeElement.getTagName().equals("autor")) {
                                 knjiga.setAutor(dijeteOdKnjigeElement.getTextContent());
                                 autorPronadjen = true;
@@ -203,12 +202,7 @@ public class GlavnaController {
                         return;
                     }
                     novaListaKnjiga.add(knjiga);
-                    brojUcitanihKnjiga = brojUcitanihKnjiga + 1;
                 }
-            }
-            if (brojKnjiga != brojUcitanihKnjiga) {
-                prikazProzoraZaGresku();
-                return;
             }
         } catch (Exception e) {
             prikazProzoraZaGresku();

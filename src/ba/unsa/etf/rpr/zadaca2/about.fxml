@@ -12,7 +12,7 @@
    <top>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" text="Naziv programa: Biblioteka">
+            <Label fx:id="nazivPrograma" alignment="CENTER" contentDisplay="CENTER" text="Naziv programa: Biblioteka">
                <VBox.margin>
                   <Insets bottom="5.0" left="128.0" right="5.0" top="25.0" />
                </VBox.margin>
@@ -22,7 +22,7 @@
                <font>
                   <Font name="System Bold" size="18.0" />
                </font></Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" text="Naziv autora: Džavid Brdar">
+            <Label fx:id="nazivAutora" alignment="CENTER" contentDisplay="CENTER" text="Naziv autora: Džavid Brdar">
                <VBox.margin>
                   <Insets bottom="5.0" left="150.0" right="5.0" />
                </VBox.margin>
@@ -36,7 +36,7 @@
       </VBox>
    </top>
    <center>
-      <ImageView fitHeight="172.0" fitWidth="239.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+      <ImageView fx:id="slika" fitHeight="172.0" fitWidth="239.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
          <image>
             <Image url="@/img/library.jpg" />
          </image>

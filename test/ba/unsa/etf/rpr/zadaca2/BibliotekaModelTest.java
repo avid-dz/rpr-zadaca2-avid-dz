@@ -106,7 +106,7 @@ class BibliotekaModelTest {
         System.setOut(new PrintStream(byteArrayOutputStream));
         m.ispisiKnjige();
         System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out)));
-        String ispisano = byteArrayOutputStream.toString();
+        String ispisano = byteArrayOutputStream.toString(); // Pročitamo sa standardnog izlaza
         assertAll("test ispisa knjiga",
                 () -> assertTrue(ispisano.contains("Knjige su:")),
                 () -> assertTrue(ispisano.contains("Autor 1, Naslov 1, abc, 10, 08. 09. 2015")),
