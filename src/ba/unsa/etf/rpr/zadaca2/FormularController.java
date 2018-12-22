@@ -40,7 +40,7 @@ public class FormularController {
         knjigaIsbn.textProperty().bindBidirectional(model.getTrenutnaKnjiga().isbnProperty());
         knjigaDatum.valueProperty().bindBidirectional(model.getTrenutnaKnjiga().datumIzdanjaProperty());
         knjigaBrojStranica.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory
-                (0, 10000, model.getTrenutnaKnjiga().getBrojStranica()));
+                (0, 100000, model.getTrenutnaKnjiga().getBrojStranica()));
         knjigaBrojStranica.getValueFactory().valueProperty().bindBidirectional(knjigaBrojStranicaObject);
 
         validacijaPoljaAutor(knjigaAutor.getText());
