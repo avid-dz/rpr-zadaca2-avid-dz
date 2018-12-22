@@ -105,7 +105,7 @@ public class Knjiga {
 
 
     @Override
-    public String toString() {
+    public String toString() {  // Podrska za ispisivanje karakteristika knjige
         return autor.get() + ", " + naslov.get() + ", " + isbn.get() + ", " + (brojStranica.get()) + ", "
                 + DateTimeFormatter.ofPattern("dd. MM. yyyy").format(datumIzdanja.get());
     }

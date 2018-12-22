@@ -42,6 +42,8 @@ public class GlavnaController {
     private SimpleStringProperty tekstStatusa;
     private FormularController formularController;
 
+    // Naredna metoda se ne koristi kao klasicni setter, vec sluzi kao pomocna u ovoj klasi za postavljanje
+    // teksta statusa koji je property-jem bind-an (povezan) sa Label-om na kojem se prikazuje
     private void setTekstStatusa(String tekstStatusa) {
         this.tekstStatusa.set(tekstStatusa);
     }
@@ -54,12 +56,13 @@ public class GlavnaController {
 
     @FXML
     public void initialize() {
-        statusMsg.textProperty().bind(tekstStatusa);
-        setTekstStatusa("Program pokrenut.");
+        statusMsg.textProperty().bind(tekstStatusa);    // Gore spomenuto bind-anje property-ja teksta statusa i
+        setTekstStatusa("Program pokrenut.");           // odgovarajuceg Label-a
 
         tabelaKnjiga.setEditable(true);
-        tabelaKnjiga.setItems(bibliotekaModel.getKnjige());
+        tabelaKnjiga.setItems(bibliotekaModel.getKnjige()); // Punjenje tabele knjigama iz modela
 
+        // Selektovana knjiga u tabeli postaje trenutna knjiga
         tabelaKnjiga.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Knjiga>() {
             @Override
             public void changed(ObservableValue<? extends Knjiga> observableValue, Knjiga o, Knjiga n) {
@@ -67,6 +70,7 @@ public class GlavnaController {
             }
         });
 
+        // Na dupli klik na red u tabeli pokrece se izmjena knjige koja je u tom redu
         tabelaKnjiga.setRowFactory(tv -> {
             TableRow<Knjiga> redTabele = new TableRow<>();
             redTabele.setOnMouseClicked(event -> {
@@ -77,6 +81,7 @@ public class GlavnaController {
             return redTabele;
         });
 
+        // Ovo regulise format prikaza datuma u tabeli
         kolonaDatum.setCellFactory(new Callback<TableColumn<Knjiga, LocalDate>, TableCell<Knjiga, LocalDate>>() {
             @Override
             public TableCell<Knjiga, LocalDate> call(TableColumn<Knjiga, LocalDate> param) {
@@ -198,18 +203,18 @@ public class GlavnaController {
                         }
                     }
                     if (!autorPronadjen || !naslovPronadjen || !isbnPronadjen || !datumPronadjen) {
-                        prikazProzoraZaGresku();
+                        prikazProzoraZaGresku();    // Ovo je za slucaj da neki element nedostaje
                         return;
                     }
-                    novaListaKnjiga.add(knjiga);
-                }
+                    novaListaKnjiga.add(knjiga);    // Ako je sve uredu sa ucitavanjem knjige,
+                }                                   // dodaj knjigu u novu listu
             }
         } catch (Exception e) {
             prikazProzoraZaGresku();
-            return;
+            return; // Ako nije sve uredu, ostaje stara lista knjiga
         }
-        bibliotekaModel.setKnjige(novaListaKnjiga);
-        tabelaKnjiga.setItems(novaListaKnjiga);
+        bibliotekaModel.setKnjige(novaListaKnjiga); // Ako je generalno sve uredu, postavlja se nova lista knjiga
+        tabelaKnjiga.setItems(novaListaKnjiga);     // i mijenja stanje u biblioteci
         tabelaKnjiga.getSelectionModel().clearSelection();
     }
 
@@ -218,8 +223,8 @@ public class GlavnaController {
         fileChooser.setTitle("Open");
         fileChooser.getExtensionFilters().addAll
                 (new FileChooser.ExtensionFilter("XML File", "*.xml"));
-        File izabraniFajl = fileChooser.showOpenDialog(new Stage());
-        doOpen(izabraniFajl);
+        File izabraniFajl = fileChooser.showOpenDialog(new Stage());    // izabrani fajl se salje u metodu doOpen
+        doOpen(izabraniFajl);                                           // u kojoj se iz njega citaju podaci
     }
 
     public void saveEvent(ActionEvent actionEvent) {
@@ -227,8 +232,8 @@ public class GlavnaController {
         fileChooser.setTitle("Save");
         fileChooser.getExtensionFilters().addAll
                 (new FileChooser.ExtensionFilter("XML File", "*.xml"));
-        File izabraniFajl = fileChooser.showSaveDialog(new Stage());
-        doSave(izabraniFajl);
+        File izabraniFajl = fileChooser.showSaveDialog(new Stage());    // izabrani fajl se salje u metodu doSave
+        doSave(izabraniFajl);                                           // u kojoj se u njega spasavaju podaci
     }
 
     public void printEvent(ActionEvent actionEvent) {
@@ -238,7 +243,7 @@ public class GlavnaController {
 
     public void exitEvent(ActionEvent actionEvent) {
         Platform.exit();
-    }
+    }   // izlaz iz glavnog prozora i prekid programa
 
     public void addEvent(ActionEvent actionEvent) {
         Knjiga prethodnoSelektovanaKnjiga = bibliotekaModel.getTrenutnaKnjiga();
@@ -262,7 +267,7 @@ public class GlavnaController {
             exception.printStackTrace();
         }
         if (noviStage == null) return;
-        noviStage.setOnCloseRequest(event -> {
+        noviStage.setOnCloseRequest(event -> {  // validacija forme se vrsi pri pokusaju da se izadje iz forme
             if (formularController.validnaForma()) {
                 tabelaKnjiga.getSelectionModel().select(bibliotekaModel.getTrenutnaKnjiga());
                 setTekstStatusa("Knjiga dodana.");
@@ -340,7 +345,7 @@ public class GlavnaController {
             if (formularController.validnaForma()) {
                 setTekstStatusa("Knjiga izmijenjena.");
             }
-            else {
+            else {  // Ako forma nije validna, knjiga se ne izmijeni i vrate joj se stare karakteristike
                 trenutna.setAutor(knjigaSaStarimKarakteristikama.getAutor());
                 trenutna.setNaslov(knjigaSaStarimKarakteristikama.getNaslov());
                 trenutna.setIsbn(knjigaSaStarimKarakteristikama.getIsbn());
@@ -351,7 +356,7 @@ public class GlavnaController {
         });
     }
 
-    private void prikazProzoraZaGresku() {
+    private void prikazProzoraZaGresku() {  // Pomocna metoda za metodu doOpen
         Alert greska = new Alert(Alert.AlertType.ERROR);
         greska.setTitle("Greška");
         greska.setHeaderText("Neispravan format datoteke");

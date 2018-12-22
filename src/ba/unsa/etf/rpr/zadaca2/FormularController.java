@@ -26,7 +26,7 @@ public class FormularController {
     public DatePicker knjigaDatum;
     private boolean validanDatumIzdanjaKnjige;
     public Spinner<Integer> knjigaBrojStranica;
-    private ObjectProperty<Integer> knjigaBrojStranicaObject;
+    private ObjectProperty<Integer> knjigaBrojStranicaObject;   // Radi povezivanja sa spinnerom
 
     public FormularController(BibliotekaModel m) {
         model = m;
@@ -73,7 +73,7 @@ public class FormularController {
             validacijaDatumaIzdanja(n);
         });
 
-        knjigaDatum.setConverter(new StringConverter<LocalDate>() {
+        knjigaDatum.setConverter(new StringConverter<LocalDate>() { // Ovo regulise format datuma u DatePickeru
             @Override
             public String toString(LocalDate datumZaPretvaranje) {
                 if (datumZaPretvaranje != null) {
@@ -103,19 +103,19 @@ public class FormularController {
 
     private boolean validanNaslov(String n) {
         return !n.trim().equals("");
-    }
+    }   // Naslov ne smije biti prazan
 
     private boolean validanAutor(String n) {
         return !n.trim().equals("");
-    }
+    }   // Autor ne smije biti prazan
 
     private boolean validanIsbn(String n) {
         return !n.trim().equals("");
-    }
+    }   // ISBN ne smije biti prazan
 
     private boolean validanDatumIzdanja(LocalDate n) {
         if (n == null) return false;
-        return !n.isAfter(LocalDate.now());
+        return !n.isAfter(LocalDate.now()); // Datum ne smije biti u buducnosti
     }
 
     private void validacijaPoljaNaslov(String n) {

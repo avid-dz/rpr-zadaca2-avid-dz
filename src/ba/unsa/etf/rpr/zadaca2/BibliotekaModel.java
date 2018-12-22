@@ -33,7 +33,7 @@ public class BibliotekaModel {
     public void ispisiKnjige() {
         System.out.println("Knjige su:");
         for (Knjiga k : knjige)
-            System.out.println(k);
+            System.out.println(k);  // Za ovo je korisna metoda toString()
     }
 
     void napuni() {
@@ -57,7 +57,7 @@ public class BibliotekaModel {
     }
 
     public void addKnjiga(Knjiga knjiga) {
-        if (knjiga.getDatumIzdanja() == null) knjiga.setDatumIzdanja(LocalDate.now());
+        if (knjiga.getDatumIzdanja() == null) knjiga.setDatumIzdanja(LocalDate.now());  // Defaultni datum je danasnji
         knjige.add(knjiga);
     }
 }
